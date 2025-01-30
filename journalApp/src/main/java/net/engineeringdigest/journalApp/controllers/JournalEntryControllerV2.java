@@ -2,6 +2,7 @@ package net.engineeringdigest.journalApp.controllers;
 
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.services.JournalEntryServices;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,14 +44,14 @@ public class JournalEntryControllerV2 {
     }
 
     @GetMapping("/id/{JId}")
-    public ResponseEntity<JournalEntry> findById (@PathVariable Long JId) {
+    public ResponseEntity<JournalEntry> findById (@PathVariable ObjectId JId) {
 
         Optional<JournalEntry> journalEntry = journalEntryServices.findById(JId);
         return journalEntry.map(entry -> new ResponseEntity<>(entry, HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/id/{JId}")
-    public ResponseEntity<?> deleteById (@PathVariable Long JId) {     // ? Means WildCard Entity, Can return now any type of class.
+    public ResponseEntity<?> deleteById (@PathVariable ObjectId JId) {     // ? Means WildCard Entity, Can return now any type of class.
         try {
             journalEntryServices.deleteById(JId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -62,7 +63,7 @@ public class JournalEntryControllerV2 {
     }
 
     @PutMapping("/id/{JId}")
-    public JournalEntry updateById (@PathVariable Long JId, @RequestBody JournalEntry updatedEntry) {
+    public JournalEntry updateById (@PathVariable ObjectId JId, @RequestBody JournalEntry updatedEntry) {
         JournalEntry currentEntries = journalEntryServices.findById(JId).orElse(null);
         if ( currentEntries != null ) {
             currentEntries.setTitle(updatedEntry.getTitle() != null && !updatedEntry.getTitle().equals(" ")? updatedEntry.getTitle(): currentEntries.getTitle());
