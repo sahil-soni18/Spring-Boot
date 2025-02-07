@@ -1,7 +1,6 @@
 package net.engineeringdigest.journalApp;
 
 
-import jdk.jfr.BooleanFlag;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
