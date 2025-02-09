@@ -24,9 +24,11 @@ public class UserController {
     @PostMapping("/Register")
     public Boolean createUser (@RequestBody UserEntity user ) {
         try {
-            userServices.saveEntry(user);
+            System.out.println(user.getPassword());
+            userServices.saveUserEntry(user);
             return true;
         } catch ( Exception e ) {
+            System.out.println("Error in Controller while registering " + e);
             return false;
         }
     }

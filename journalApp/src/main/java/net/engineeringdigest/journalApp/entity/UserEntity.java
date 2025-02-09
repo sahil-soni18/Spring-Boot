@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,7 +25,10 @@ public class UserEntity {
     @NonNull
     private String userName;
     @NonNull
-    private String Password;
+    @JsonProperty("password")
+    private String password;
     @DBRef
     private List<JournalEntry> journalEntries = new ArrayList<>();
+
+    private List<String> roles;
 }
