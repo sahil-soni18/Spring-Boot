@@ -31,7 +31,7 @@ public class UserServices {
     public Boolean saveUserEntry(UserEntity user ) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Collections.singletonList("ROLE_USER"));
+            user.setRoles(Collections.singletonList("USER"));
             userRepository.save(user);
             return true;
         } catch (Exception e) {
@@ -51,6 +51,10 @@ public class UserServices {
 
     public void deleteById (ObjectId JId) {
         userRepository.deleteById(JId);
+    }
+
+    public void deleteByUserName ( String userName ) {
+        userRepository.deleteByUserName(userName);
     }
     public UserEntity findByUserName ( String userName ) {
         return userRepository.findByUserName(userName);

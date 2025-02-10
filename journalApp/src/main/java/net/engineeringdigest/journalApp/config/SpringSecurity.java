@@ -4,6 +4,7 @@ import net.engineeringdigest.journalApp.services.UserDetailsServiceImplementatio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,13 +30,17 @@ public class SpringSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        System.out.println("Spring Security Filters Loaded...");
         http.authorizeRequests()
-                .antMatchers("/JournalV2/**").authenticated()
+                .antMatchers(HttpMethod.PUT, "/JournalV2/**", "/Users/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().csrf().disable();
+
     }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
